@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String   @unique
+  userPw   String
+  name     String
+  E_mail   String?
+  phoneNum Int
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
+
+model SidoCode {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  sido        String
+  sidoCode    String
+  sigungu     String
+  sigunguCode String
+}
+
+// 일반현황
+model Status {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  kindercode   String? @unique // 유치원코드
+  sidoCode     Int?
+  sigunguCode  Int?
+  officeedu    String? // 교육청명
+  subofficeedu String? // 지원청명
+  kindername   String? // 유치원명
+  establish    String? // 설립유형
+  rppnname     String? // 대표자명
+  ldgrname     String? // 원장명
+  edate        Int? // 설립일
+  odate        Int? // 개원일
+  addr         String? // 주소
+  telno        String? // 전화번호
+  hpaddr       String? // 홈페이지
+  opertime     String? // 운영시간
+  clcnt3       Int? // 만3세학급수
+  clcnt4       Int? // 만4세학급수
+  clcnt5       Int? // 만5세학급수
+  mixclcnt     Int? // 혼합학급수
+  shclcnt      Int? // 특수학급수
+  ppcnt3       Int? // 만3세유아수
+  ppcnt4       Int? // 만4세유아수
+  ppcnt5       Int? // 만5세유아수
+  mixppcnt     Int? // 혼합유아수
+  shppcnt      Int? // 특수유아수
+
+  vehicle        vehicle[]
+  yearsOfService yearsOfService[]
+  staff          staff[]
+  safetyCheck    safetyCheck[]
+}
+
+// 통학차량현황
+model vehicle {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  vhcl_oprn_yn String? // 차량운영여부
+
+  status   Status @relation(fields: [statusId], references: [id])
+  statusId String @db.ObjectId
+}
+
+// 근속연수현황
+model yearsOfService {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  yy1_undr_thcnt         Int? // 1년미만교사수
+  yy1_abv_yy2_undr_thcnt Int? // 1년이상2년미만교사수
+  yy2_abv_yy4_undr_thcnt Int? // 2년이상4년미만교사수
+  yy4_abv_yy6_undr_thcnt Int? // 4년이상6년미만교사수
+  yy6_abv_thcnt          Int? // 6년이상교사수
+
+  status   Status @relation(fields: [statusId], references: [id])
+  statusId String @db.ObjectId
+}
+
+// 직위·자격별교직원현황
+model staff {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  hdst_tchr_qacnt Int? // 수석교사자격수
+  rgth_gd1_qacnt  Int? // 정교사1급자격수
+  rgth_gd2_qacnt  Int? // 정교사2급자격수
+  asth_qacnt      Int? // 준교사자격수
+  spcn_thcnt      Int? // 특수교사수
+  ntcnt           Int? // 보건교사수
+  ntrt_thcnt      Int? // 영양교사수
+
+  status   Status @relation(fields: [statusId], references: [id])
+  statusId String @db.ObjectId
+}
+
+// 안전점검ㆍ교육 실시 현황
+model safetyCheck {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  fire_avd_yn    String? // 소방대피훈련여부
+  fire_avd_dt    Int? // 소방대피훈련일자
+  gas_ck_yn      String? // 가스점검여부
+  gas_ck_dt      Int? // 가스점검일자
+  fire_safe_yn   String? // 소방안전점검여부
+  fire_safe_dt   Int? // 소방안전점검일자
+  elect_ck_yn    String? // 전기설비점검여부
+  elect_ck_dt    Int? // 전기설비점검일자
+  plyg_ck_yn     String? // 놀이시설 안전검사 대상여부
+  plyg_ck_dt     Int? // 놀이시설 안전검사 점검일자
+  plyg_ck_rs_cd  String? // 놀이시설 안전검사 점검결과
+  cctv_ist_yn    String? // CCTV 설치여부
+  cctv_ist_total Int? // CCTV 총 설치수
+
+  status   Status @relation(fields: [statusId], references: [id])
+  statusId String @db.ObjectId
+}
