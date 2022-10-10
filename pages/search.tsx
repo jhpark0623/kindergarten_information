@@ -93,7 +93,7 @@ const Home: NextPage = () => {
         </div>
         <div className="bg-blue-300 w-full">
           {searchData.map((ele) => (
-            <div>{ele.kindername}</div>
+            <div key={ele.id}>{ele.kindername}</div>
           ))}
         </div>
       </div>
