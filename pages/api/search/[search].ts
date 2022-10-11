@@ -5,7 +5,7 @@ import client from "../../../libs/server/client";
 type Data = {
   name?: string;
   err?: any;
-  SidoCode?: Status[];
+  kinder?: Status[];
 };
 
 export default async function handler(
@@ -17,13 +17,13 @@ export default async function handler(
     const region: string = req.query.search?.toString() || "";
     const { selectSido, selectSigungu } = JSON.parse(region);
 
-    const SidoCode = await client.status.findMany({
+    const kinder = await client.status.findMany({
       where: {
         sidoCode: Number(selectSido),
         sigunguCode: Number(selectSigungu),
       },
     });
-    res.status(200).json({ name: "John Doe", SidoCode });
+    res.status(200).json({ name: "John Doe", kinder });
   } catch (err) {
     res.status(200).json({ err });
   } finally {

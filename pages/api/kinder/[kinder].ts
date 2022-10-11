@@ -3,9 +3,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import client from "../../../libs/server/client";
 
 type Data = {
-  name?: string;
+  ok?: boolean;
   err?: any;
-  SidoCode?: Status[];
+  kinderData?: Status | null;
 };
 
 export default async function handler(
@@ -13,8 +13,16 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   try {
-    console.log(req.query.search);
-    const region: string = req.query.search?.toString() || "";
+    console.log(req.query.kinder);
+    const id: string = req.query.kinder?.toString() || "";
+    console.log(id);
+
+    const kinderData = await client.status.findUnique({
+      where: {
+        id,
+      },
+    });
+    res.status(200).json({ ok: true, kinderData });
   } catch (err) {
     res.status(200).json({ err });
   } finally {

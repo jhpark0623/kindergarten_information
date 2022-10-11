@@ -59,7 +59,7 @@ const Home: NextPage = () => {
     console.log(region);
     fetch(`/api/search/${JSON.stringify(region)}`)
       .then((res) => res.json())
-      .then((json) => setSearchData(json.SidoCode));
+      .then((json) => setSearchData(json.kinder));
   };
 
   return (
