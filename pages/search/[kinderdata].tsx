@@ -27,14 +27,10 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     setKinderCode(router.query.kinderdata?.toString() || "");
-    searchData();
-    console.log(kinder);
+    fetch(`../api/kinder/${router.query.kinderdata?.toString() || ""}`)
+      .then((res) => res.json())
+      .then((json) => setKinder(json.kinderData || ""));
   }, [router.query]);
-
-  useEffect(() => {
-    searchData();
-    console.log(kinder);
-  }, []);
 
   return (
     <Layout>
@@ -56,7 +52,9 @@ const Home: NextPage = () => {
               <Map address={kinder.addr} />
             </div>
           </div>
-        ) : null}
+        ) : (
+          <div>Loading.....</div>
+        )}
       </div>
     </Layout>
   );

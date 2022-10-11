@@ -4,12 +4,15 @@ import styled from "@emotion/styled";
 const MapContainer = styled.div`
   aspect-ratio: 4/5;
 `;
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
+
 const Map: FC<{ address: string | undefined }> = ({ address }) => {
+  const mapScript = document.createElement("script");
+
+  mapScript.async = true;
+  mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&autoload=false&libraries=services`;
+
+  document.head.appendChild(mapScript);
+
   useEffect(() => {
     const onLoadKakaoMap = () => {
       window.kakao.maps.load(() => {
