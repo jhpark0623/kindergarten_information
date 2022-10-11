@@ -2,7 +2,8 @@ import { SidoCode, Status } from "@prisma/client";
 import { copyFileSync } from "fs";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import Layout from "../components/Layout";
+import KinderList from "../../components/KinderList";
+import Layout from "../../components/Layout";
 
 interface sido {
   sido: string;
@@ -40,6 +41,7 @@ const Home: NextPage = () => {
 
   const sigunug = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectSido(event.currentTarget.value);
+    setSelectSigungu("");
     fetch(`api/sidoCode/${event.currentTarget.value}`)
       .then((res) => res.json())
       .then((json) => setSigunguCode(json.SidoCode));
@@ -63,7 +65,7 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <div className="flex justify-center w-[700px] bg-white pt-10">
-        <div className="bg-green-300 w-[200px]">
+        <div className="bg-green-300 w-[200px] flex items-center flex-col">
           지역 선택
           <select
             name="selectSiDo"
@@ -78,11 +80,14 @@ const Home: NextPage = () => {
             ))}
           </select>
           <select
-            name="selectSiDo"
+            name="selectSigungu"
+            value={selectSigungu}
             className="border-2 border-black w-full h-10 px-2 my-5 dark:text-black"
             onChange={sigungu}
           >
-            <option hidden>시/군/구</option>
+            <option value={""} hidden>
+              시/군/구
+            </option>
             {sigunguCode.map((sigungu, idx) => (
               <option key={idx} value={sigungu.sigunguCode}>
                 {sigungu.sigungu}
@@ -93,7 +98,7 @@ const Home: NextPage = () => {
         </div>
         <div className="bg-blue-300 w-full">
           {searchData.map((ele) => (
-            <div key={ele.id}>{ele.kindername}</div>
+            <KinderList key={ele.id} data={ele} />
           ))}
         </div>
       </div>

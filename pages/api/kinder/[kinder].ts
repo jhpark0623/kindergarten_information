@@ -15,15 +15,6 @@ export default async function handler(
   try {
     console.log(req.query.search);
     const region: string = req.query.search?.toString() || "";
-    const { selectSido, selectSigungu } = JSON.parse(region);
-
-    const SidoCode = await client.status.findMany({
-      where: {
-        sidoCode: Number(selectSido),
-        sigunguCode: Number(selectSigungu),
-      },
-    });
-    res.status(200).json({ name: "John Doe", SidoCode });
   } catch (err) {
     res.status(200).json({ err });
   } finally {
