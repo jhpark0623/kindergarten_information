@@ -1,18 +1,11 @@
-import { FC, useEffect } from "react";
 import styled from "@emotion/styled";
+import { useEffect } from "react";
 
-const MapContainer = styled.div`
-  aspect-ratio: 4/5;
-`;
+interface MapProps {
+  address: String;
+}
 
-const Map: FC<{ address: string | undefined }> = ({ address }) => {
-  const mapScript = document.createElement("script");
-
-  mapScript.async = true;
-  mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&autoload=false&libraries=services`;
-
-  document.head.appendChild(mapScript);
-
+const Map = ({ address }: MapProps) => {
   useEffect(() => {
     const onLoadKakaoMap = () => {
       window.kakao.maps.load(() => {
@@ -56,5 +49,9 @@ const Map: FC<{ address: string | undefined }> = ({ address }) => {
 
   return <MapContainer id="map" />;
 };
+
+const MapContainer = styled.div`
+  aspect-ratio: 4/5;
+`;
 
 export default Map;
