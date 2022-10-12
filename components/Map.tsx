@@ -19,7 +19,7 @@ const Map = ({ address }: MapProps) => {
             const container = document.getElementById("map");
             const options = {
               center: coords,
-              level: 3,
+              level: 2,
             };
             const map = new window.kakao.maps.Map(container, options);
             // 결과값으로 받은 위치를 마커로 표시

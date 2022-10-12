@@ -47,6 +47,7 @@ const Home: NextPage = () => {
               <div>설립일 : {kinder.edate}</div>
               <div>개원일 : {kinder.odate}</div>
               <div>주소 : {kinder.addr}</div>
+              <button>즐겨찾기</button>
             </div>
             <div className="w-full">
               <Map address={kinder.addr} />
