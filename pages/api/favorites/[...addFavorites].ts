@@ -38,9 +38,6 @@ export default async function handler(
       const email = query[0];
       const kinderID = query[1];
       const check = query[2];
-      console.log(check);
-
-      console.log(req.query.addFavorites);
 
       const kinder = await client.user
         .findUnique({
