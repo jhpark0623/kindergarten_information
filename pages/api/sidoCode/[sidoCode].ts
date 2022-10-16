@@ -24,6 +24,8 @@ export default async function handler(
         sigunguCode: "desc",
       },
     });
+
+    console.log(SidoCode);
     res.status(200).json({ name: "John Doe", SidoCode });
   } catch (err) {
     res.status(200).json({ err });

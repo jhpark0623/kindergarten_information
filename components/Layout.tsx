@@ -49,7 +49,7 @@ const Layout = (props: any) => {
         )}
       </div>
       {/* 몸뚱이 */}
-      <div className="flex justify-center bg-blue-200 h-[100%] min-h-[89vh]">
+      <div className="flex justify-center bg-blue-200 h-[100%] min-h-[120vh]">
         {props.children}
       </div>
     </div>

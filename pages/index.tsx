@@ -41,7 +41,7 @@ const Home: NextPage = () => {
   const sido = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectSido(event.currentTarget.value);
     setSelectSigungu("");
-    fetch(`api/data/sidoCode/${event.currentTarget.value}`)
+    fetch(`api/sidoCode/${event.currentTarget.value}`)
       .then((res) => res.json())
       .then((json) => setSigunguCode(json.SidoCode));
   };
