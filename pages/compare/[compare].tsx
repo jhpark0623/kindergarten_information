@@ -77,7 +77,7 @@ const Home: NextPage = () => {
 
                 {compareList.map((kinder: Status) => (
                   // console.log(kinder.kindername)
-                  <FavoritStatus data={kinder}></FavoritStatus>
+                  <FavoritStatus key={kinder.id} data={kinder}></FavoritStatus>
                 ))}
               </div>
             </div>

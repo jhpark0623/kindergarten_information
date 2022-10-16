@@ -80,8 +80,10 @@ const Home: NextPage = () => {
           </div>
           <div className="h-full py-3 space-y-2 p-4">
             {checkListName
-              ? checkListName.map((ele) => (
-                  <div className="border-b-2 ">{ele}</div>
+              ? checkListName.map((ele, idx) => (
+                  <div key={idx} className="border-b-2 ">
+                    {ele}
+                  </div>
                 ))
               : ""}
           </div>
