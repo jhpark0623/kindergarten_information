@@ -1,4 +1,4 @@
-import { SidoCode, Status } from "@prisma/client";
+import { SidoCode, Status, vehicle } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import client from "../../../libs/server/client";
 
@@ -6,6 +6,7 @@ type Data = {
   ok?: boolean;
   err?: any;
   kinderData?: Status | null;
+  vehicle?: vehicle | null;
 };
 
 export default async function handler(
@@ -22,7 +23,15 @@ export default async function handler(
         id,
       },
     });
-    res.status(200).json({ ok: true, kinderData });
+
+    const vehicle = await client.vehicle.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    console.log(kinderData);
+    res.status(200).json({ ok: true, kinderData, vehicle });
   } catch (err) {
     res.status(200).json({ err });
   } finally {

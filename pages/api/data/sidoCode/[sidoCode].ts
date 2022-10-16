@@ -1,7 +1,7 @@
 import { SidoCode } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
-import csvToJSON from "../../../components/CsvToJSON";
-import client from "../../../libs/server/client";
+import csvToJSON from "../../../../components/CsvToJSON";
+import client from "../../../../libs/server/client";
 
 type Data = {
   name?: string;
@@ -14,8 +14,8 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   try {
-    console.log(req.query.sidoCode);
     const sidoCode = req.query.sidoCode?.toString();
+    console.log(sidoCode);
 
     const SidoCode = await client.sidoCode.findMany({
       where: {

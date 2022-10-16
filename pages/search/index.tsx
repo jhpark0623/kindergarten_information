@@ -1,5 +1,4 @@
 import { SidoCode, Status } from "@prisma/client";
-import { copyFileSync } from "fs";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import KinderList from "../../components/KinderList";
@@ -39,10 +38,10 @@ const Home: NextPage = () => {
     setSearchData([]);
   }, []);
 
-  const sigunug = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const sido = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectSido(event.currentTarget.value);
     setSelectSigungu("");
-    fetch(`api/sidoCode/${event.currentTarget.value}`)
+    fetch(`api/data/sidoCode/${event.currentTarget.value}`)
       .then((res) => res.json())
       .then((json) => setSigunguCode(json.SidoCode));
   };
@@ -64,13 +63,13 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <div className="flex justify-center w-[700px] bg-white pt-10">
-        <div className="bg-green-300 w-[200px] flex items-center flex-col">
+      <div className="flex justify-center w-[700px] pt-10">
+        <div className="w-[200px] flex items-center flex-col">
           지역 선택
           <select
             name="selectSiDo"
             className="border-2 border-black w-full h-10 px-2 my-5 dark:text-black"
-            onChange={sigunug}
+            onChange={sido}
           >
             <option hidden>시/도</option>
             {sidoCode.map((sido, idx) => (
@@ -94,9 +93,14 @@ const Home: NextPage = () => {
               </option>
             ))}
           </select>
-          <button onClick={search}>검색</button>
+          <button
+            onClick={search}
+            className="border-2 border-black bg-blue-400"
+          >
+            검색
+          </button>
         </div>
-        <div className="bg-blue-300 w-full">
+        <div className="w-full">
           {searchData.map((ele) => (
             <KinderList key={ele.id} data={ele} />
           ))}
