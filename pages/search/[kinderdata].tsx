@@ -218,7 +218,7 @@ const Home: NextPage = () => {
                 <div>주소 : {kinder.addr}</div>
               </div>
               <div className="w-full">
-                {/* <Map address={kinder.addr} /> */}
+                <Map address={kinder.addr} />
               </div>
             </div>
             <div className="flex justify-around py-5 border-2 border-slate-400">
