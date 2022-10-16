@@ -40,7 +40,7 @@ export default async function handler(
       const check = query[2];
 
       const kinder = await client.user
-        .findMany({
+        .findFirst({
           where: {
             email,
           },
@@ -50,7 +50,7 @@ export default async function handler(
             if ("false" === check)
               return await client.favorites.create({
                 data: {
-                  userId: user[0].id,
+                  userId: user.id,
                   kinderID,
                 },
               });
