@@ -160,7 +160,7 @@ const Home: NextPage = () => {
                 </div>
 
                 {compareList.map((kinder: Status) => (
-                  <FavoritNumber data={kinder}></FavoritNumber>
+                  <FavoritNumber key={kinder.id} data={kinder}></FavoritNumber>
                 ))}
               </div>
             </div>
