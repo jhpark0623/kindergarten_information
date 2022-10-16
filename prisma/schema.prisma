@@ -15,7 +15,8 @@ model User {
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
-  email     String      @unique
+  email String @unique
+
   Favorites Favorites[]
 }
 
