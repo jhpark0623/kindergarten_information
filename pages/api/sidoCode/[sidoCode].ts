@@ -1,7 +1,6 @@
 import { SidoCode } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
-import csvToJSON from "../../../../components/CsvToJSON";
-import client from "../../../../libs/server/client";
+import client from "../../../libs/server/client";
 
 type Data = {
   name?: string;

@@ -33,7 +33,10 @@ const Home: NextPage = () => {
           <div className="text-2xl font-bold">즐겨찾기 목록</div>
           {favoritesList ? (
             favoritesList.map((kinder) => (
-              <div className="border-2 border-black flex rounded-xl">
+              <div
+                key={kinder.id}
+                className="border-2 border-black flex rounded-xl"
+              >
                 <input
                   type={"checkbox"}
                   value={kinder.kindername || ""}

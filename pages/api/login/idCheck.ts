@@ -12,14 +12,13 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const data = req.body;
-  const userID = JSON.parse(data).userID;
-
-  console.log(typeof userID);
+  const userId = JSON.parse(data).userID.toString();
+  console.log(userId);
 
   try {
     const data = await client.user.findUnique({
       where: {
-        userId: userID,
+        email: userId,
       },
     });
     console.log(data);
