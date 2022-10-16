@@ -17,7 +17,7 @@ export default async function handler(
       const { email, kinderID } = JSON.parse(req.body);
       console.log(email, kinderID);
       const kinder = await client.user
-        .findUnique({
+        .findFirst({
           where: {
             email,
           },
